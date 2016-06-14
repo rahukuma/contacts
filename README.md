@@ -8,6 +8,7 @@ Following are included in this project
 What is pending :
 1. API response pagination.
 2. Test doesn't include many contacts CRUD.Need files and will take some time.
+3. Server is accessed on http protocol.Need to integrate SSL to server.
 
 How to build :
 1.Start tomcat server(either from here or from apache site with version 8)
