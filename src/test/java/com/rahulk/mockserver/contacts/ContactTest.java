@@ -85,7 +85,6 @@ public class ContactTest {
         assertEquals(response.statusCode(), 400);
         ErrorsDTO errorsDTO = new GsonBuilder().serializeNulls().create().fromJson(response.asString(), ErrorsDTO.class);
         assertEquals(errorsDTO.getErrors().get(0).getCode(), 112);
-        System.out.println("FIRST : " + response.asString());
     }
 
     @Test(priority = 1)
