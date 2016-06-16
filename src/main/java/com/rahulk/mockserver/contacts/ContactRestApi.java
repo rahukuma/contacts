@@ -10,6 +10,7 @@ import com.rahulk.utils.FileUtils;
 import com.rahulk.utils.StringUtils;
 
 import javax.ws.rs.*;
+import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.io.File;
@@ -59,7 +60,7 @@ public class ContactRestApi {
             return Response.status(Response.Status.CONFLICT).entity(conflictResponse).build();
         }
         fileUtils.save(responseMessage, FileUtils.PARENT_DATA_DIR, fileName);
-        return Response.status(200).entity(responseMessage).build();
+        return Response.status(Response.Status.OK).entity(responseMessage).build();
     }
 
     @GET
@@ -89,6 +90,7 @@ public class ContactRestApi {
             if (fileUtils.exists(criteria)) {
                 File[] files = fileUtils.getFiles(criteria);
                 for (File file : files) {
+                    System.out.println("FOUND FILE WITH NAME : " + file.getName() + " N PATH " + file.getAbsolutePath());
                     String response = fileUtils.read(file.toString());
                     contactDTOList.add(gson.fromJson(response, ContactDTO.class));
                 }

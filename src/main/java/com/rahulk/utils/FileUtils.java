@@ -13,8 +13,7 @@ import java.nio.file.Paths;
 
 public class FileUtils {
     // Using servlet parent directory as contact data storage
-    public static final String PARENT_DATA_DIR = System.getProperty("user.dir") + File.separator + ".." +
-            File.separator + "contacts";
+    public static final String PARENT_DATA_DIR = System.getProperty("user.dir") + File.separator  +"contacts";
 
     public void save(String message, String filePath, String fileName) {
         Path path = null;
