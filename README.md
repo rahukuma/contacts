@@ -13,7 +13,10 @@ What is pending :
 How to build :
 1.Start tomcat server(either from here or from apache site with version 8)
 2. Under url of pom file for maven tomcat7 plugin, host has to be changed from localhost to appropriate hostname , where tomcat is running. 
-3. Run maven command as : mvn clean install tomcat7:deploy
+3. Run maven command as : mvn clean install tomcat7:deploy -Dmaven.test.skip=true
+4. For deployment to heroku : mvn clean install heroku:deploy-war -Dmaven.test.skip=true
+    For heroku : appName has to be changed accordingly in pom.xml OR
+                  commandline argument can also be used as : -Dheroku.appName=myapp
 
 PS : Has been tested java7,maven3 and maven tomcat7 plugin.
 
