@@ -24,6 +24,7 @@ class TestContact():
 
         res_string = str(response.read(), 'utf-8')
         TestContact.compare_json(ContactDTOFrom().from_json(res_string), file_name)
+        connection.close()
 
     def test_add_contact_again(cls):
         file_name = sys._getframe().f_code.co_name + '.properties'
@@ -36,6 +37,7 @@ class TestContact():
 
         message = json.loads(str(response.read(), 'utf-8'))
         assert message['errors'][0]['code'] == 101
+        connection.close()
 
     def test_get_contact_by_email(cls):
         connection = http.client.HTTPSConnection(cls.url_host)
@@ -48,6 +50,7 @@ class TestContact():
         file_name = 'test_add_contact.properties'
         x = [ContactDTOFrom()]
         TestContact.compare_json((x[0].from_json(res_string))[0], file_name)
+        connection.close()
 
     def test_get_contact_by_name(cls):
         connection = http.client.HTTPSConnection(cls.url_host)
@@ -60,6 +63,7 @@ class TestContact():
         file_name = 'test_add_contact.properties'
         x = [ContactDTOFrom()]
         TestContact.compare_json((x[0].from_json(res_string))[0], file_name)
+        connection.close()
 
     def test_get_contact_by_email_and_name(cls):
         connection = http.client.HTTPSConnection(cls.url_host)
@@ -72,6 +76,7 @@ class TestContact():
         file_name = 'test_add_contact.properties'
         x = [ContactDTOFrom()]
         TestContact.compare_json((x[0].from_json(res_string))[0], file_name)
+        connection.close()
 
     def test_get_contact_by_email_less_3_char(cls):
         connection = http.client.HTTPSConnection(cls.url_host)
@@ -82,6 +87,7 @@ class TestContact():
 
         message = json.loads(str(response.read(), 'utf-8'))
         assert message['errors'][0]['code'] == 112
+        connection.close()
 
     def test_get_contact_by_name_less_3_char(cls):
         connection = http.client.HTTPSConnection(cls.url_host)
@@ -92,6 +98,7 @@ class TestContact():
 
         message = json.loads(str(response.read(), 'utf-8'))
         assert message['errors'][0]['code'] == 112
+        connection.close()
 
     def test_get_contact_by_empty_email(cls):
         connection = http.client.HTTPSConnection(cls.url_host)
@@ -102,6 +109,7 @@ class TestContact():
 
         message = json.loads(str(response.read(), 'utf-8'))
         assert message['errors'][0]['code'] == 112
+        connection.close()
 
     def test_get_contact_by_no_param(cls):
         connection = http.client.HTTPSConnection(cls.url_host)
@@ -112,6 +120,7 @@ class TestContact():
 
         message = json.loads(str(response.read(), 'utf-8'))
         assert message['errors'][0]['code'] == 111
+        connection.close()
 
     def test_update_contact(cls):
         file_name = sys._getframe().f_code.co_name + '.properties'
@@ -124,6 +133,7 @@ class TestContact():
 
         res_string = str(response.read(), 'utf-8')
         TestContact.compare_json(ContactDTOFrom().from_json(res_string), file_name)
+        connection.close()
 
     def test_get_contact_after_update(cls):
         connection = http.client.HTTPSConnection(cls.url_host)
@@ -136,12 +146,14 @@ class TestContact():
         file_name = 'test_update_contact.properties'
         x = [ContactDTOFrom()]
         TestContact.compare_json((x[0].from_json(res_string))[0], file_name)
+        connection.close()
 
     def test_delete_contact(cls):
         connection = http.client.HTTPSConnection(cls.url_host)
         connection.request('DELETE', cls.url_basepath + '/email/araza@gmail.com')
         response = connection.getresponse()
         assert response.code == 200
+        connection.close()
 
     def test_delete_contact_same_again(cls):
         connection = http.client.HTTPSConnection(cls.url_host)
@@ -151,6 +163,7 @@ class TestContact():
 
         message = json.loads(str(response.read(), 'utf-8'))
         assert message['errors'][0]['code'] == 102
+        connection.close()
 
     def test_delete_contact_nonexisting_contact(cls):
         connection = http.client.HTTPSConnection(cls.url_host)
@@ -160,6 +173,7 @@ class TestContact():
 
         message = json.loads(str(response.read(), 'utf-8'))
         assert message['errors'][0]['code'] == 102
+        connection.close()
 
     def compare_json(contact_dto, file_name):
         assert contact_dto.name == get_a_property(file_name, 'name')
